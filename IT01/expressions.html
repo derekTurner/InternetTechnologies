@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2
+/angular.min.js"></script> 
+<title>AngularJS Expressions</title>
+</head>
+
+<body>
+   <h1>Sample Application: Strings, numbers, objects and arrays</h1>
+   
+   <div ng-app = "" ng-init = " quantity = 1;
+                                cost = 30.00; 
+                                student = {firstname:'Jane',lastname:'Doe',bannerID:'B00123678'};
+                                marks = [80,90,75,73,60]">
+      <p>Hello {{student.firstname + " " + student.lastname}}!</p>
+      <p>Expense on Books : &pound; {{cost * quantity}} </p>
+      <p>Banner ID: {{student.bannerID}}</p>
+      <p>Marks(Math): {{marks[3]}}</p>
+   </div>
+
+
+</body>
+</html>

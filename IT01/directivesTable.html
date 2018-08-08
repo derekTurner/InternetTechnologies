@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2
+/angular.min.js"></script> 
+<title>AngularJS Directives</title>
+<style>
+    table { border-collapse: collapse;}
+    table, th , td {border: 2px solid blue; margin-left: 5em}
+</style>
+</head>
+
+<body>
+   <h1>Sample Application: Table</h1>
+   
+   <div ng-app = "" ng-init = "countries = [{locale:'en-US',name:'United States'}, {locale:'en-GB',name:'United Kingdom'}, {locale:'en-FR',name:'France'}]"> 
+      <p>Enter your Name: <input type = "text" ng-model = "name"></p>
+      <p>Hello <span ng-bind = "name"></span>!</p>
+   
+      <table>
+          <caption>Table of Countries with locale</caption>
+          <thead>
+             <tr><th>Country</th><th>Locale</th></tr> 
+          </thead>
+          <tbody>
+              <tr ng-repeat = "country in countries">
+                  <td>{{country.name}}</td>
+                  <td>{{country.locale}}</td>
+              </tr>
+          </tbody>
+      </table>
+   </div>
+
+</body>
+</html>

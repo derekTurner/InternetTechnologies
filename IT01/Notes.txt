@@ -1,0 +1,31 @@
+https://www.tutorialspoint.com/angularjs/index.htm
+
+testserver.html  no angular here, just testing editor platform and testing server
+
+testAngularJS.html enter namen ==> hello name uses model and bind
+
+https://www.tutorialspoint.com/angularjs/angularjs_overview.htm
+
+No examples
+
+https://www.tutorialspoint.com/angularjs/angularjs_environment.htm
+myfirstexample.html  enter name ==> l name  uses app controller and scope
+
+https://www.tutorialspoint.com/angularjs/angularjs_mvc_architecture.htm
+
+No examples
+
+https://www.tutorialspoint.com/angularjs/angularjs_first_application.htm
+
+Revises testAngularJS
+
+https://www.tutorialspoint.com/angularjs/angularjs_directives.htm
+
+directivesList.html generate list from data uses init and repeat JSON
+
+directivesTable.html variant of previous file to format data to table
+
+https://www.tutorialspoint.com/angularjs/angularjs_expressions.htm
+
+expressions.html javascript expressions inside {{}}
+
