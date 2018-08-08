@@ -29,3 +29,13 @@ https://www.tutorialspoint.com/angularjs/angularjs_expressions.htm
 
 expressions.html javascript expressions inside {{}}
 
+https://www.tutorialspoint.com/angularjs/angularjs_controllers.htm
+
+controller.html enter first and second name ==> print using controller $scope
+controller2.html enter first and second name ==> print using this keyword
+
+https://www.tutorialspoint.com/angularjs/angularjs_filters.htm
+
+filter.html filters values using input to model
+filter2.html filters values using input to model and this keyword
+filter3.html filters values using select form element

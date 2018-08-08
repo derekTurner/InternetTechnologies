@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+  <title>AngularJS Controller</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+  <script>
+     var mainApp = angular.module("mainApp", []);
+
+     mainApp.controller('studentController', function($scope) {
+        $scope.student = {
+           firstName: "Jane",
+           lastName: "Doe",
+           fees:500,
+
+           subjects:[
+              {name:'Physics',marks:70},
+              {name:'Chemistry',marks:80},
+              {name:'Math',marks:65}
+           ],
+
+           fullName: function() {
+              return this.firstName + " " + this.lastName;
+           }
+        };
+     });
+  </script>
+  <style>
+      table.in {border: 0}
+      table.out { border-collapse: collapse;}
+      table.out, table.out th , table.out td {border: 2px solid blue; margin-left: 5em}
+  </style>
+
+</head>
+
+<body>
+    <h2>AngularJS Sample Application: Filters</h2>
+    <div ng-app = "mainApp" ng-controller = "studentController">
+       <table class="in" >
+          <tr>
+             <td>Enter first name:</td>
+             <td><input type = "text" ng-model = "student.firstName"></td>
+          </tr>
+
+          <tr>
+             <td>Enter last name: </td>
+             <td><input type = "text" ng-model = "student.lastName"></td>
+          </tr>
+
+          <tr>
+             <td>Enter fees: </td>
+             <td><input type = "text" ng-model = "student.fees"></td>
+          </tr>
+
+          <tr>
+             <td>Enter subject: </td>
+             <td><input type = "text" ng-model = "subjectName"></td>
+          </tr>
+       </table>
+       <br/>
+
+       <table class="out">
+          <tr>
+             <td>Name in Upper Case: </td><td>{{student.fullName() | uppercase}}</td>
+          </tr>
+
+          <tr>
+             <td>Name in Lower Case: </td><td>{{student.fullName() | lowercase}}</td>
+          </tr>
+
+          <tr>
+             <td>fees: </td><td>{{student.fees | currency}}
+             </td>
+          </tr>
+
+          <tr>
+             <td>Subject:</td>
+
+             <td>
+                <ul>
+                   <li ng-repeat = "subject in student.subjects | filter: subjectName |orderBy:'marks'">
+                      {{ subject.name + ', marks:' + subject.marks }}
+                   </li>
+                </ul>
+             </td>
+          </tr>
+       </table>
+
+    </div>
+
+
+
+ </body>
+</html>
