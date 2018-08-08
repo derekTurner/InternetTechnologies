@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+  <title>AngularJS Includes</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+  <script>
+      var mainApp = angular.module("mainApp", []);
+
+      mainApp.controller('studentController', function($scope) {
+         $scope.student = {
+            firstName:"Jane",
+            lastName: "Doe",
+            fees:500,
+
+            subjects:[
+               {name:'Physics',marks:70},
+               {name:'Chemistry',marks:80},
+               {name:'Math',marks:65},
+               {name:'English',marks:75},
+               {name:'Music',marks:67}
+            ],
+
+            fullName: function() {
+               var studentObject;
+               studentObject = $scope.student;
+               return studentObject.firstName + " " + studentObject.lastName;
+            }
+         };
+      });
+   </script>
+  <style>
+      table, th , td {
+         border: 1px solid grey;
+         border-collapse: collapse;
+         padding: 5px;
+      }
+
+      table tr:nth-child(odd) {
+         background-color: #f2f2f2;
+      }
+
+      table tr:nth-child(even) {
+         background-color: #ffffff;
+      }
+   </style>
+</head>
+
+<body>
+  <h2>AngularJS Sample Application: Includes</h2>
+
+    <div ng-app = "mainApp" ng-controller="studentController">
+       <div ng-include = "'./inclusions/main.html'"></div>
+       <div ng-include = "'./inclusions/subjects.html'"></div>
+    </div>
+</body>
+</html>

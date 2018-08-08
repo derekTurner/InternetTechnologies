@@ -39,3 +39,23 @@ https://www.tutorialspoint.com/angularjs/angularjs_filters.htm
 filter.html filters values using input to model
 filter2.html filters values using input to model and this keyword
 filter3.html filters values using select form element
+
+https://www.tutorialspoint.com/angularjs/angularjs_tables.htm
+
+repeatTable show results in a nested table
+
+https://www.tutorialspoint.com/angularjs/angularjs_html_dom.htm
+
+htmlDom.html enable disable show hide click html elements
+
+https://www.tutorialspoint.com/angularjs/angularjs_modules.htm
+
+modularRepeatTable.html separate module and controller into linked js files
+
+https://www.tutorialspoint.com/angularjs/angularjs_forms.htm
+
+validateForm submit uses ng-click validate msg shows if $dirty $invalid $error true
+
+https://www.tutorialspoint.com/angularjs/angularjs_includes.htm
+
+includes.html 
