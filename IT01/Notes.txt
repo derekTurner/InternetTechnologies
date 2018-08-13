@@ -58,4 +58,8 @@ validateForm submit uses ng-click validate msg shows if $dirty $invalid $error t
 
 https://www.tutorialspoint.com/angularjs/angularjs_includes.htm
 
-includes.html 
+includes.html
+
+https://www.tutorialspoint.com/angularjs/angularjs_ajax.htm
+
+ajaxJSON reads student data from json files
