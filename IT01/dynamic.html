@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+
+    <head>
+        <title>Dynamic HTML </title>
+
+        <script>
+            function myFunction() {
+                let x = document.getElementById("myText").value;
+                document.getElementById("greeting").innerHTML = x;
+            }
+        </script>
+        
+    </head>
+
+    <body>
+        <h2>Dynamic HTML :</h2>
+
+        <p>Enter your Name:
+            <input type="text" id="myText" onkeyup="myFunction()" value="FirstName">
+        </p>
+        <p>Hello <span id="greeting"></span>!</p>
+
+    </body>
+
+</html>

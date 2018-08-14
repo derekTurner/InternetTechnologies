@@ -1,6 +1,8 @@
-https://www.tutorialspoint.com/angularjs/index.htm
 
 testserver.html  no angular here, just testing editor platform and testing server
+dynamic.html  data input using the htmlDom
+
+https://www.tutorialspoint.com/angularjs/index.htm
 
 testAngularJS.html enter namen ==> hello name uses model and bind
 
