@@ -62,4 +62,5 @@ includes.html
 
 https://www.tutorialspoint.com/angularjs/angularjs_ajax.htm
 
-ajaxJSON reads student data from json files
+ajaxJSON.html reads student data from json files
+ajaxHTML.html reads and displays text from file using syntax highlighter
