@@ -9,21 +9,23 @@
   var mainApp = angular.module("mainApp", ['ngRoute']);
 
   mainApp.config(['$routeProvider', function($routeProvider) {
-    $routeProvider.
+    $routeProvider
+    
 
-    when('/addStudent', {
-      templateUrl: 'addStudent.htm',
-      controller: 'AddStudentController'
-    }).
+    .when('/addStudent', {
+      templateUrl: 'addStudent.html',
+      controller: 'AddStudentController'  
+    })
 
-    when('/viewStudents', {
-      templateUrl: 'viewStudents.htm',
+    .when('/viewStudents', {
+      templateUrl: 'viewStudents.html',
       controller: 'ViewStudentsController'
-    }).
+    })
 
-    otherwise({
+    .otherwise({
       redirectTo: '/addStudent'
     });
+
   }]);
 
   mainApp.controller('AddStudentController', function($scope) {
@@ -42,16 +44,16 @@
   <h2>AngularJS Sample Application : views</h2>
 
   <div ng-app = "mainApp">
-    <p><a href = "#addStudent">Add Student</a></p>
-    <p><a href = "#viewStudents">View Students</a></p>
+    <p><a href = "#!addStudent">Add Student</a></p>
+    <p><a href = "#!viewStudents">View Students</a></p>
     <div ng-view></div>
 
-    <script type = "text/ng-template" id = "addStudent.htm">
+    <script type = "text/ng-template" id = "addStudent.html">
       <h2> Add Student </h2>
       {{message}}
     </script>
 
-    <script type = "text/ng-template" id = "viewStudents.htm">
+    <script type = "text/ng-template" id = "viewStudents.html">
       <h2> View Students </h2>
       {{message}}
     </script>
