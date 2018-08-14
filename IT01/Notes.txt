@@ -64,3 +64,27 @@ https://www.tutorialspoint.com/angularjs/angularjs_ajax.htm
 
 ajaxJSON.html reads student data from json files
 ajaxHTML.html reads and displays text from file using syntax highlighter
+
+https://www.tutorialspoint.com/angularjs/angularjs_views.htm
+
+views.html switches ng-templates into ng-view
+
+https://www.tutorialspoint.com/angularjs/angularjs_scopes.htm
+
+scope.html Shows how scope links controller to view and inheritance 
+
+https://www.tutorialspoint.com/angularjs/angularjs_services.htm
+
+service.html create service by factory and service mentods add to controller
+
+https://www.tutorialspoint.com/angularjs/angularjs_dependency_injection.htm
+
+injection.html add service from provider
+
+https://www.tutorialspoint.com/angularjs/angularjs_custom_directives.htm
+
+customDirectives.html   create customn html tags
+
+https://www.tutorialspoint.com/angularjs/angularjs_internationalization.htm
+
+locale.html   show German currency, date format and numbers

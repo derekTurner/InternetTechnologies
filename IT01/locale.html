@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <title>AngularJS </title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+  <script src="https://code.angularjs.org/1.7.2/i18n/angular-locale_de-de.js"></script>  
+  
+  <!-- look at https://code.angularjs.org/1.7.2/i18n/ for list of locales angular-locale_de-de.js -->
+  
+  <script>
+        var mainApp = angular.module("mainApp", []);
+         
+         mainApp.controller('StudentController', function($scope) {
+            $scope.fees = 100;
+            $scope.admissiondate  = new Date();
+            $scope.rollno = 123.45;
+         }); 
+  </script>
+  <style>
+  </style>
+</head>
+
+<body>
+  <h2>AngularJS Sample Application :</h2>
+ 
+  <div ng-app = "mainApp" ng-controller = "StudentController">
+        {{fees | currency }}  <br/><br/>
+        {{admissiondate | date }}  <br/><br/>
+        {{rollno | number }}
+     </div>
+
+</body>
+</html>
