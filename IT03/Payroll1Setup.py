@@ -22,5 +22,5 @@ conn.execute("insert into holiday values(1569,'2012-04-04','2012-04-18'," +
 			"null,9)")
 conn.execute("insert into rvv values(10)")
 conn.execute("insert into user values('aUser','whosOk')")
-conn.commit();
+conn.commit()
 print('Done')
