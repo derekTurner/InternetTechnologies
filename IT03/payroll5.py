@@ -37,6 +37,21 @@ class myHandler(BaseHTTPRequestHandler):
         else:
             self.SendError(400, 'Expected one of Employee/,Post/,Holiday/')
 
+    def GetData(self):
+        if not self.headers.__contains__('Content-Length'):
+            return None
+        h = self.headers.__getitem__('Content-Length')
+        n = int(h)
+        return str(self.rfile.read(n), 'utf-8')
+
+    def do_POST(self):
+        try:
+            s = self.GetData()
+            self.Send200(s + ' was posted')
+        except Exception as e:
+            self.SendError(500, repr(e))
+        return
+
 
 server = HTTPServer(('', 8088), myHandler)
 print('Started httpserver')

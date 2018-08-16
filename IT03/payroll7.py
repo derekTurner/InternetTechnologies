@@ -1,9 +1,12 @@
 import sqlite3
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from EMPLOYEE import *
+from POST import *
+from HOLIDAY import *
+import Json
 
-
+conn = sqlite3.connect('Payroll.db')
 class myHandler(BaseHTTPRequestHandler):
-
    def Send200(self, mess):
 
       try:
@@ -30,7 +33,7 @@ class myHandler(BaseHTTPRequestHandler):
       if len(pp) < 3:
          self.Send200(self.path + ' is too short')
       elif pp[2] == 'Employee':
-         self.Send200('Employee request')
+        self.Send200(self.GetEmployee(pp))
       elif pp[2] == 'Post':
          self.Send200('Post request')
       elif pp[2] == 'Holiday':
@@ -53,8 +56,14 @@ class myHandler(BaseHTTPRequestHandler):
          self.SendError(500, repr(e))
       return
 
+   def GetEmployee(self,p):
+        if len(p)<4:
+            return Json.GetAll(EMPLOYEE(),conn)
+        id = int(p[3])
+        return Json.Stringify(EMPLOYEE._Find(id,conn))  
 
-conn = sqlite3.connect('Payroll.db')
+
+
 server = HTTPServer(('', 8088), myHandler)
 print('Started httpserver')
 server.serve_forever()
