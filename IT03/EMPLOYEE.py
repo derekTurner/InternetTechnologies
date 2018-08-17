@@ -1,4 +1,3 @@
-# from types import *  do we need this line yet?
 import Json
 
 
@@ -12,7 +11,8 @@ class EMPLOYEE:
         self.rvv = 0
         return
 
-    def _Find(self,id,conn):
+    @classmethod
+    def _Find(EMPLOYEE,id,conn):
         c = conn.cursor()
         x = c.execute('select * from EMPLOYEE where id='+str(id))
         e = EMPLOYEE()

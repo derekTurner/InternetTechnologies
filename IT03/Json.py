@@ -1,5 +1,3 @@
-# from types import *  is this line needed yet?
-
 """JSON formatters etc"""
 
 
@@ -24,7 +22,6 @@ def Stringify(ob):
 def GetOne(x, ob, r):
    if r == None:
       return ''
-      #   d = dir(r)       is this line needed?
    for i in range(len(r)):
       f = x.description[i][0]
       setattr(ob, f, r[i])
@@ -51,7 +48,11 @@ def GetAllWith(ob, conn, cond):
    sb = '['
    cm = ''
    c = conn.cursor()
-   x = c.execute('select * from '+tp+' where '+cond)
+   
+   sql = 'select * from ' +tp 
+   print(sql)
+   x= c.execute(sql)
+   # x = c.execute('select * from '+tp+' where '+cond)
    for r in x:
       ob = ob.__class__()
       GetOne(x, ob, r)
