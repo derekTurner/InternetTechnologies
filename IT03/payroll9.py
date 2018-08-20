@@ -37,7 +37,7 @@ class myHandler(BaseHTTPRequestHandler):
       elif pp[2] == 'Post':
          self.Send200(self.GetPost(pp))
       elif pp[2] == 'Holiday':
-         self.Send200(self.GetHoliday)
+         self.Send200(self.GetHoliday(pp))
       else:
          self.SendError(400, 'Expected one of Employee/,Post/,Holiday/')
 
@@ -65,14 +65,14 @@ class myHandler(BaseHTTPRequestHandler):
    def GetPost(self,p):
         if len(p)<4:
             return Json.GetAll(POST(),conn)
-        id = int(p[3])
-        return Json.Stringify(POST._GetAllWith(id,conn)) #
+        id = int(p[3])  
+        return (POST._GetAllWith(id,conn)) 
 
    def GetHoliday(self,p):
         if len(p)<4:
             return Json.GetAll(HOLIDAY(),conn)
         id = int(p[3])
-        return Json.Stringify(HOLIDAY._GetAllWith(id,conn)) #
+        return (HOLIDAY._GetAllWith(id,conn)) 
 
 
 conn = sqlite3.connect('Payroll.db')

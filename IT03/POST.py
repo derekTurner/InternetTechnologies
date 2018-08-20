@@ -13,12 +13,8 @@ class POST:
 
     @classmethod
     def _GetAllWith(POST, id, conn):
-    #    def GetAllWith(ob, conn, cond):
-    #    Json.GetOne(x,e,c.fetchone())
-        c = conn.cursor()
-    #    x = c.execute('select * from POST where id='+str(id))
-        cond = "Empid = " + str(id)
-        e = POST()
-        Json.GetAllWith(e, conn, cond)
-        c.close()
-        return e
+
+        cond = "empid = " + str(id)
+        p = POST()
+        return  Json.GetAllWith(p, conn, cond)
+        

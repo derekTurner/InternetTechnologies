@@ -12,11 +12,12 @@ class EMPLOYEE:
         return
 
     @classmethod
-    def _Find(EMPLOYEE,id,conn):
-        c = conn.cursor()
-        x = c.execute('select * from EMPLOYEE where id='+str(id))
-        e = EMPLOYEE()
-        Json.GetOne(x,e,c.fetchone())
-        c.close()
-        return e
+    def _Find(EMPLOYEE, id, conn):
+      c = conn.cursor()
+      x = c.execute('select * from EMPLOYEE where id='+str(id))
+      e = EMPLOYEE()
+      Json.GetOne(x, e, c.fetchone())
+      c.close()
+      return e
+
   

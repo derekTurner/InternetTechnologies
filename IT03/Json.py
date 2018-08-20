@@ -48,11 +48,7 @@ def GetAllWith(ob, conn, cond):
    sb = '['
    cm = ''
    c = conn.cursor()
-   
-   sql = 'select * from ' +tp 
-   print(sql)
-   x= c.execute(sql)
-   # x = c.execute('select * from '+tp+' where '+cond)
+   x = c.execute('select * from '+ tp +' where '+ cond)
    for r in x:
       ob = ob.__class__()
       GetOne(x, ob, r)
@@ -60,3 +56,4 @@ def GetAllWith(ob, conn, cond):
       cm = ','
    c.close()
    return sb + ']'
+
