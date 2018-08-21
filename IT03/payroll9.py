@@ -7,72 +7,102 @@ import Json
 
 
 class myHandler(BaseHTTPRequestHandler):
-   def Send200(self, mess):
 
-      try:
-         self.send_response(200)
-         self.send_header('Content-type', 'text/plain')
-         self.end_headers()
-         self.wfile.write(bytes(mess, 'utf-8'))
-      except ConnectionResetError:
-         pass
+    validNames = ('Employee', 'Post', 'Holiday')
 
-   def SendError(self, status, mess):
+    def Send200(self, mess):
 
-      try:
-         self.send_response(status)
-         self.send_header('Content-type', 'text/plain')
-         self.end_headers()
-         self.wfile.write(bytes(mess, 'utf-8'))
-      except ConnectionResetError:
-         pass
+        try:
+            self.send_response(200)
+            self.send_header('Content-type', 'text/plain')
+            self.end_headers()
+            self.wfile.write(bytes(mess, 'utf-8'))
+        except ConnectionResetError:
+            pass
 
-   def do_GET(self):
+    def SendError(self, status, mess):
 
-      pp = self.path.split('/')
-      if len(pp) < 3:
-         self.Send200(self.path + ' is too short')
-      elif pp[2] == 'Employee':
-        self.Send200(self.GetEmployee(pp))
-      elif pp[2] == 'Post':
-         self.Send200(self.GetPost(pp))
-      elif pp[2] == 'Holiday':
-         self.Send200(self.GetHoliday(pp))
-      else:
-         self.SendError(400, 'Expected one of Employee/,Post/,Holiday/')
+        try:
+            self.send_response(status)
+            self.send_header('Content-type', 'text/plain')
+            self.end_headers()
+            self.wfile.write(bytes(mess, 'utf-8'))
+        except ConnectionResetError:
+            pass
 
-   def GetData(self):
-      if not self.headers.__contains__('Content-Length'):
-         return None
-      h = self.headers.__getitem__('Content-Length')
-      n = int(h)
-      return str(self.rfile.read(n), 'utf-8')
+    def do_GET(self):
+        valid = False
+        errorMessage = ''
 
-   def do_POST(self):
-      try:
-         s = self.GetData()
-         self.Send200(s + ' was posted')
-      except Exception as e:
-         self.SendError(500, repr(e))
-      return
+        pp = self.path.split('/')
+        if len(pp) < 3:
+            valid = False
+            errorMessage = self.path + ' is too short'
+        if len(pp) > 2:
+            valid = pp[2] in self.validNames
+            if not valid:
+                erroMessage = 'Expected one of'
+                for validName in self.validNames:
+                    errorMessage += '/' + self.validName + ', '
+        if (valid and len(pp) > 3):
+            valid = pp[3].isnumeric()
+            if valid:
+                valid = (int(pp[3]) > 0)
+            if not valid:
+                errorMessage = 'Invalid identifier'
+        if (valid and len(pp) == 5):
+            valid = pp[4].isnumeric()
+            if valid:
+                valid = (int(pp[4]) > 0)
+            if not valid:
+                errorMessage = 'Invalid index'
 
-   def GetEmployee(self,p):
-        if len(p)<4:
-            return Json.GetAll(EMPLOYEE(),conn)
+        if not valid:
+            self.SendError(400, errorMessage)
+        else:
+            if pp[2] == 'Employee':
+                self.Send200(self.GetEmployee(pp))
+            if pp[2] == 'Post':
+                self.Send200(self.GetPost(pp))
+            if pp[2] == 'Holiday':
+                self.Send200(self.GetHoliday(pp))
+
+    def GetData(self):
+        if not self.headers.__contains__('Content-Length'):
+            return None
+        h = self.headers.__getitem__('Content-Length')
+        n = int(h)
+        return str(self.rfile.read(n), 'utf-8')
+
+    def do_POST(self):
+        try:
+            s = self.GetData()
+            self.Send200(s + ' was posted')
+        except Exception as e:
+            self.SendError(500, repr(e))
+        return
+
+    def GetEmployee(self, p):
+        if len(p) < 4:
+            return Json.GetAll(EMPLOYEE(), conn)
         id = int(p[3])
-        return Json.Stringify(EMPLOYEE._Find(id,conn)) 
+        return Json.Stringify(EMPLOYEE._Find(id, conn))
 
-   def GetPost(self,p):
-        if len(p)<4:
-            return Json.GetAll(POST(),conn)
-        id = int(p[3])  
-        return (POST._GetAllWith(id,conn)) 
+    def GetPost(self, p):
+        if (len(p) == 5):
+            return (POST._FindNth(int(p[3]), int(p[4]), conn))
+        elif (len(p) == 4):
+            return (POST._GetAllWith(int(p[3]), conn))
+        elif (len(p) == 3):
+            return Json.GetAll(POST(), conn)
 
-   def GetHoliday(self,p):
-        if len(p)<4:
-            return Json.GetAll(HOLIDAY(),conn)
-        id = int(p[3])
-        return (HOLIDAY._GetAllWith(id,conn)) 
+    def GetHoliday(self, p):
+        if (len(p) == 5):
+            return (HOLIDAY._FindNth(int(p[3]), int(p[4]), conn))
+        elif (len(p) == 4):
+            return (HOLIDAY._GetAllWith(int(p[3]), conn))
+        elif (len(p) == 3):
+            return Json.GetAll(HOLIDAY(), conn)
 
 
 conn = sqlite3.connect('Payroll.db')
