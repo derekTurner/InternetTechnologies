@@ -77,7 +77,12 @@ class myHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         try:
             s = self.GetData()
-            self.Send200(s + ' was posted')
+            p = self.path.split('/')
+            if len(p)>=3:
+                if p[2]=='Employee':
+                    self.Send200(self.PostEmployee(s))
+                    return
+            self.SendError(400,'Expected one of Employee/,Post/,Holiday/') 
         except Exception as e:
             self.SendError(500, repr(e))
         return
@@ -104,6 +109,22 @@ class myHandler(BaseHTTPRequestHandler):
         elif (len(p) == 3):
             return Json.GetAll(HOLIDAY(), conn)
 
+    def GetRvv(self):
+        c = conn.cursor()
+        c.execute('update rvv set seq=seq+1')
+        c.close()
+        c = conn.cursor()
+        rn = int(c.execute('select seq from rvv').fetchone()[0])
+        c.close()
+        return rn
+
+    def PostEmployee(self,s):
+        e = EMPLOYEE()
+        Json.Fill(e,s)
+        e.rvv = self.GetRvv()
+        conn.execute(Json.PostSQL(e))
+        conn.commit()
+        return 'OK'
 
 conn = sqlite3.connect('Payroll.db')
 server = HTTPServer(('', 8088), myHandler)
