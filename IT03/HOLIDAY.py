@@ -31,3 +31,10 @@ class HOLIDAY:
         text = Json.GetOne(x, h, c.fetchone())
         c.close()
         return text
+
+
+class HOLIDAY1(HOLIDAY):
+    def __init__(self):
+        self.emp_rvv = 0
+        self.post_rvv = 0
+        return super().__init__()

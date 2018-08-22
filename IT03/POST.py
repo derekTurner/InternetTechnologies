@@ -31,3 +31,9 @@ class POST:
         text = Json.GetOne(x, p, c.fetchone())
         c.close()
         return text
+
+
+class POST1(POST):
+    def __init__(self):
+        self.emp_rvv = 0
+        return super().__init__()
