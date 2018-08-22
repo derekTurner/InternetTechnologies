@@ -36,4 +36,4 @@ class POST:
 class POST1(POST):
     def __init__(self):
         self.emp_rvv = 0
-        return super().__init__()
+        super().__init__()

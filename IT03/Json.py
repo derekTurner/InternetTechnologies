@@ -113,7 +113,7 @@ def PostSQL(ob):
                 sc += "'"
     return sb + sc + ')'
 
-    def CheckRvv(ob, rvv, conn):
+def CheckRvv(ob, rvv, conn):
     tp = ob.__class__.__name__
     c = conn.cursor()
     r = c.execute('select count(*) from ' + tp +

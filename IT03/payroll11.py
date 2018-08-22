@@ -1,7 +1,7 @@
 import sqlite3
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from EMPLOYEE import *
-from POST import POST
+from POST import POST,POST1
 from HOLIDAY import HOLIDAY
 import Json
 
