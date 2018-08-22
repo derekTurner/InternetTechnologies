@@ -122,3 +122,8 @@ def CheckRvv(ob, rvv, conn):
     if int(r[0]) != 1:
         raise Exception('Data has changed')
     return
+
+class RestException(Exception):
+    def __init__(self,err,mess):
+        self.error = err
+        super().__init__(mess)
