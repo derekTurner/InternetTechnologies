@@ -85,6 +85,9 @@ class myHandler(BaseHTTPRequestHandler):
                 elif p[2] == 'Post':
                     self.Send200(self.PostPost(s))
                     return
+                elif p[2] == 'Holiday':
+                    self.Send200(self.PostHoliday(s))
+                    return                    
             self.SendError(400, 'Expected one of Employee/,Post/,Holiday/')
         except Exception as e:
             self.SendError(500, repr(e))
@@ -143,6 +146,19 @@ class myHandler(BaseHTTPRequestHandler):
         conn.commit()
         return 'OK'
 
+    def PostHoliday(self, s):
+        h1 = HOLIDAY1()
+        Json.Fill(h1, s)
+        Json.CheckRvv(EMPLOYEE(), h1.emp_rvv, conn)
+        Json.CheckRvv(POST(), h1.post_rvv, conn)
+        h = HOLIDAY()
+        h.empid = h1.empid
+        h.hfrom = h1.hfrom
+        h.hto = h1.hto
+        h.rvv = self.GetRvv()
+        conn.execute(Json.PostSQL(h))
+        conn.commit()
+        return 'OK'
 
 conn = sqlite3.connect('Payroll.db')
 server = HTTPServer(('', 8088), myHandler)
