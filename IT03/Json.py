@@ -113,6 +113,28 @@ def PostSQL(ob):
                 sc += "'"
     return sb + sc + ')'
 
+
+def PutSQL(ob, oldrvv):
+    tp = ob.__class__.__name__
+    sb = 'update ' + tp + ' set '
+    cm = ''
+    for f in dir(ob):
+        if f[0] != '_':
+            v = getattr(ob, f)
+            if v == None:
+                continue
+            if isinstance(v, datetime):
+                v = v.strftime('%Y-%m-%d')
+            sb += cm + f + '='
+            cm = ','
+            if isinstance(v, str):
+                sb += "'"
+            sb += str(v)
+            if isinstance(v, str):
+                sb += "'"
+    return sb + ' where rvv=' + str(oldrvv)
+
+
 def CheckRvv(ob, rvv, conn):
     tp = ob.__class__.__name__
     c = conn.cursor()
@@ -123,7 +145,8 @@ def CheckRvv(ob, rvv, conn):
         raise Exception('Data has changed')
     return
 
+
 class RestException(Exception):
-    def __init__(self,err,mess):
+    def __init__(self, err, mess):
         self.error = err
         super().__init__(mess)
