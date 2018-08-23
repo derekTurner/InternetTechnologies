@@ -110,24 +110,24 @@ class myHandler(BaseHTTPRequestHandler):
             return
 
     def do_PUT(self):
-    try:
-        self.Authenticate()
-    except Json.RestException as e:
-        self.SendError(e.error, e.args[0])
-    except Exception as e:
-        self.SendError(403, repr(e))
-    else:
         try:
-            s = self.GetData()
-            p = self.path.split('/')
-            if len(p) >= 3:
-                if p[2] == 'Holiday':
-                    self.Send200(self.PutHoliday(s))
-                    return
-            self.SendError(400, 'Expected one of Employee/,Post/,Holiday/')
+            self.Authenticate()
+        except Json.RestException as e:
+            self.SendError(e.error, e.args[0])
         except Exception as e:
-            self.SendError(500, repr(e))
-        return
+            self.SendError(403, repr(e))
+        else:
+            try:
+                s = self.GetData()
+                p = self.path.split('/')
+                if len(p) >= 3:
+                    if p[2] == 'Holiday':
+                        self.Send200(self.PutHoliday(s))
+                        return
+                self.SendError(400, 'Expected one of Employee/,Post/,Holiday/')
+            except Exception as e:
+                self.SendError(500, repr(e))
+            return
 
     def GetEmployee(self, p):
         if len(p) < 4:
@@ -203,6 +203,7 @@ class myHandler(BaseHTTPRequestHandler):
         Json.CheckRvv(POST(), h1.post_rvv, conn)
         oldrvv = h1.rvv
         h = HOLIDAY()
+        h.agreed = h1.agreed
         h.empid = h1.empid
         h.hfrom = h1.hfrom
         h.hto = h1.hto
