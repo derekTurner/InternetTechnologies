@@ -2,7 +2,7 @@
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2
-/angular.min.js"></script> 
+/angular.min.js"></script>
 <title>AngularJS First Application</title>
 </head>
 <body>
@@ -10,6 +10,8 @@
 <div ng-app="">
    <p>Enter your Name: <input type="text" ng-model="name"></p>
    <p>Hello <span ng-bind="name"></span>!</p>
+   <p>Hello <span>{{name}}</span>!</p>
+   <p>Hello <span>{{name +"!"}}</span></p>
 </div>
 </body>
 </html>
