@@ -5,6 +5,7 @@ from POST import POST, POST1
 from HOLIDAY import HOLIDAY, HOLIDAY1
 import Json
 import base64
+from datetime import datetime
 
 
 class myHandler(BaseHTTPRequestHandler):
@@ -43,6 +44,7 @@ class myHandler(BaseHTTPRequestHandler):
         except Exception as e:
             self.SendError(403, repr(e))
         else:
+            self.data = ''
             pp = self.path.split('/')
             if len(pp) < 3:
                 valid = False
@@ -93,6 +95,7 @@ class myHandler(BaseHTTPRequestHandler):
         else:
             try:
                 s = self.GetData()
+                self.data = s
                 p = self.path.split('/')
                 if len(p) >= 3:
                     if p[2] == 'Employee':
@@ -119,6 +122,7 @@ class myHandler(BaseHTTPRequestHandler):
         else:
             try:
                 s = self.GetData()
+                self.data = s
                 p = self.path.split('/')
                 if len(p) >= 3:
                     if p[2] == 'Holiday':
@@ -218,6 +222,7 @@ class myHandler(BaseHTTPRequestHandler):
         h = self.headers['Authorization']
         d = str(base64.b64decode(h[6:len(h)]), 'utf-8')
         s = d.split(':')
+        self.user = s[0]
         c = conn.cursor()
         r = c.execute("select count(*) from user where uname='" +
                       s[0] + "' and password='" + s[1] + "'").fetchone()
@@ -225,6 +230,13 @@ class myHandler(BaseHTTPRequestHandler):
             raise Json.RestException(401, 'Not authenticated')
         return
 
+    def log_request(self,code):
+        if code!=200:
+            return
+        log = open('log.txt','a')
+        print(str(datetime.now()),self.user,self.command,self.path,self.data,file=log) 
+        log.close()
+        return
 
 conn = sqlite3.connect('Payroll.db')
 server = HTTPServer(('', 8088), myHandler)
