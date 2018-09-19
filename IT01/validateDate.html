@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>AngularJS Validation</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+  <script>
+    var mainApp = angular.module("mainApp", []);
+    mainApp.controller('studentController', function($scope) {
+      $scope.today = {
+        value: new Date()
+      };
+    });
+  </script>
+  </style>
+</head>
+
+<body>
+  <h2>AngularJS Date</h2>
+  <p>form has no action so does not submit anywhere</p>
+  <div ng-app="mainApp" ng-controller = "studentController">
+
+    <form name="studentForm" novalidate autocomplete="on">
+      <table border="0">
+        <tr>
+          <td >Enter {{today.value | date: "dd-MM-yyyy"}} till 1st May 2019:</td>
+          <td><input name = "aDate" type = "date"
+                     placeholder="dd/mm/yyyy"
+                     min = "{{today.value | date: 'yyyy-MM-dd'}}"
+                     max = "2019-05-01"
+                     ng-model = "aDate"  required>
+            <span style = "color:red"
+                  ng-show =   "studentForm.aDate.$dirty && studentForm.aDate.$invalid">
+              <span ng-show = "studentForm.aDate.$error.date">A date is required</span>
+              <span ng-show = "studentForm.aDate.$error.max">Too late</span>
+              <span ng-show = "studentForm.aDate.$error.min">Too early</span>
+            </span>
+          </td>
+        </tr>
+      </table>
+      <p>required error {{studentForm.aDate.$error.required}}</p>
+      <p>number  error {{studentForm.aDate.$error.date}}</p>
+      <p>max  error {{studentForm.aDate.$error.max}}</p>
+      <p>min  error {{studentForm.aDate.$error.min}}</p>
+    </form>
+  </div>
+</body>
+
+</html>

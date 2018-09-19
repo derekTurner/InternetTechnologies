@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>AngularJS Validation</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+  <script>
+    var mainApp = angular.module("mainApp", []);
+  </script>
+  </style>
+</head>
+
+<body>
+  <h2>AngularJS Number</h2>
+  <p>form has no action so does not submit anywhere</p>
+  <div ng-app="mainApp">
+
+    <form name="studentForm" novalidate autocomplete="on">
+      <table border="0">
+        <tr>
+          <td>Enter Number 1 - 31:</td>
+          <td><input name = "aNumber" type = "number"
+                     min = "1" max = "31"
+                     ng-model = "aNumber"  required>
+            <span style = "color:red"
+                  ng-show =   "studentForm.aNumber.$dirty && studentForm.aNumber.$invalid">
+              <span ng-show = "studentForm.aNumber.$error.number">A number is required</span>
+              <span ng-show = "studentForm.aNumber.$error.max">Too large</span>
+              <span ng-show = "studentForm.aNumber.$error.min">Too small</span>
+            </span>
+          </td>
+        </tr>
+      </table>
+      <p>required error {{studentForm.aNumber.$error.required}}</p>
+      <p>number  error {{studentForm.aNumber.$error.number}}</p>
+      <p>max  error {{studentForm.aNumber.$error.max}}</p>
+      <p>min  error {{studentForm.aNumber.$error.min}}</p>
+    </form>
+  </div>
+</body>
+
+</html>

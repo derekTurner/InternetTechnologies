@@ -56,6 +56,13 @@ modularRepeatTable.html separate module and controller into linked js files
 
 https://www.tutorialspoint.com/angularjs/angularjs_forms.htm
 
+short examples:
+validateRequiredText.html
+validatePatternText.html tests against regular expressions
+validateEmail.html all this checks is that @ is somewhere in the mid of keyword
+validateUrl.html
+
+tutorialspoint example:
 validateForm submit uses ng-click validate msg shows if $dirty $invalid $error true
 
 https://www.tutorialspoint.com/angularjs/angularjs_includes.htm
@@ -73,7 +80,7 @@ views.html switches ng-templates into ng-view
 
 https://www.tutorialspoint.com/angularjs/angularjs_scopes.htm
 
-scope.html Shows how scope links controller to view and inheritance 
+scope.html Shows how scope links controller to view and inheritance
 
 https://www.tutorialspoint.com/angularjs/angularjs_services.htm
 

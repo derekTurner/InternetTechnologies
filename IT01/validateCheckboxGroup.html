@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>AngularJS Validation</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+  <script>
+    var mainApp = angular.module("mainApp", []);
+    mainApp.controller('studentController', function($scope) {
+      $scope.checkGroup = {
+        boxes: [ {subject:'physics',trueValue:10,falseValue:0,value:null},
+                  {subject:'maths',trueValue:"'yes'",falseValue:"'no'",value:null},
+                  {subject:'chemistry',trueValue:true,falseValue:false,value:null},
+                  {subject:'music',trueValue:true,falseValue:false,value:null}, ],
+        selectedCount: 0,
+        count: function(myEvent){
+
+          let changedBox = myEvent.target;
+          if (changedBox.checked) {this.selectedCount ++ }else{this.selectedCount --}
+        }
+      };
+    });
+  </script>
+  </style>
+</head>
+
+<body>
+  <h2>AngularJS Date</h2>
+  <p>form has no action so does not submit anywhere</p>
+  <div ng-app="mainApp" ng-controller = "studentController">
+
+    <form name="studentForm" novalidate autocomplete="on">
+      <table border="0">
+
+        <tr ng-repeat = "box in checkGroup.boxes">
+
+            <td> {{box.subject}}</td>
+            <td><input name = "cBox" type = "checkbox"
+                       ng-model = "box.value"
+                       ng-true-value = {{box.trueValue}}
+                       ng-false-value = {{box.falseValue}}
+                       ng-click = "checkGroup.count($event)"
+                       ng-required = "!checkGroup.selectedCount>0" >
+
+
+            <span style = "color:red"
+                  ng-show =   "studentForm.$dirty">
+              <span ng-show = "studentForm.cBox.$error.required">Select at least one</span>
+            </span>
+          </td>
+        </tr>
+      </table>
+      <p>required error {{studentForm.cBox.$error.required}}</p>
+      <p ng-repeat = "box in checkGroup.boxes" >{{$index}} value:{{box.value}}</p>
+      <p>selected count = {{checkGroup.selectedCount}}</p>
+    </form>
+  </div>
+</body>
+
+</html>

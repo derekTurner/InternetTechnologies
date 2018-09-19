@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>AngularJS Controller</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+  <script>
+    var mainApp = angular.module("mainApp", []);
+  </script>
+  </style>
+</head>
+
+<body>
+  <h2>AngularJS Required Text</h2>
+  <p>form has no action so does not submit anywhere</p>
+  <div ng-app="mainApp">
+
+    <form name="studentForm" novalidate autocomplete="on">
+      <table border="0">
+        <tr>
+          <td>Enter first name:</td>
+          <td><input name = "rtext" type = "text" ng-model = "rtext"  required >
+            <span style = "color:red"
+                  ng-show =   "studentForm.rtext.$dirty && studentForm.rtext.$invalid">
+              <span ng-show = "studentForm.rtext.$error.required">Text is required.</span>
+            </span>
+          </td>
+        </tr>
+      </table>
+      <p>error.required: {{studentForm.rtext.$error.required}}</p>
+    </form>
+  </div>
+</body>
+
+</html>

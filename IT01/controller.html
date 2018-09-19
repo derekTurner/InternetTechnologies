@@ -1,11 +1,12 @@
 <!doctype html>
 <html>
+
 <head>
   <title>AngularJS Controller</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
 
   <script>
-  var mainApp = angular.module("mainApp", []);
+    var mainApp = angular.module("mainApp", []);
 
   mainApp.controller('studentController', function($scope) {
     $scope.student = {
@@ -25,7 +26,7 @@
 <body>
   <h2>AngularJS Sample Application :controller</h2>
 
-  <div ng-app = "mainApp" ng-controller = "studentController">
+  <div ng-app="mainApp" ng-controller="studentController">
     Enter first name: <input type = "text" ng-model = "student.firstName"><br><br>
     Enter last name: <input type = "text" ng-model = "student.lastName"><br>
     <br>
@@ -33,4 +34,5 @@
     You are entering: {{student.fullName()}}
   </div>
 </body>
+
 </html>
