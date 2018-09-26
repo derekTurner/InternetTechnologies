@@ -1,0 +1,5 @@
+b35c6606db0394da305342d28f185dc9
+
+OpenWeatherMap free key
+
+documentation https://openweathermap.org/current 

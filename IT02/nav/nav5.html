@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8"/>
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.js"></script>
+		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-route.min.js"></script>
+		<script src="./library/prism.js"></script>
+		<link href="./css/prism.css" rel="stylesheet" />
+
+		<script>
+	    var mainApp = angular.module("mainApp", ['ngRoute']);
+
+
+			mainApp.constant('NAVMENU', {
+				myNavs: [{s:'/date',    m:'date', u:'validateDate.html',c:"dateController"},
+								 {s:'/email',   m:'email', u:'validateEmail.html',  c:""},
+				 				 {s:'/url',     m:'url', u:'validateUrl.html',  c:""},
+								 {s:'/number',  m:'number', u:'validateNumber.html', c:""},
+								 {s:'/pattern', m:'pattern', u:'validatePatternText.html', c:""},
+								 {s:'/checkbox',m:'checkbox', u:'validateCheckboxGroup.html',c:"checkboxController"}
+								]
+			});
+
+
+			mainApp.config(function($routeProvider, NAVMENU) {
+
+				$routeProvider
+
+				.when(NAVMENU.myNavs[0].s, {
+					templateUrl: NAVMENU.myNavs[0].u,
+					controller:  NAVMENU.myNavs[0].c
+				})
+
+				.when(NAVMENU.myNavs[1].s, {
+					templateUrl: NAVMENU.myNavs[1].u,
+					//controller: 'noController'
+				})
+
+				.when(NAVMENU.myNavs[2].s, {
+					templateUrl: NAVMENU.myNavs[2].u,
+					//controller: 'noController'
+				})
+
+				.when(NAVMENU.myNavs[3].s, {
+					templateUrl: NAVMENU.myNavs[3].u,
+					//controller: 'noController'
+				})
+
+				.when(NAVMENU.myNavs[4].s, {
+					templateUrl: NAVMENU.myNavs[4].u,
+					//controller: 'noController'
+				})
+
+				.when(NAVMENU.myNavs[5].s, {
+					templateUrl: NAVMENU.myNavs[5].u,
+					controller: NAVMENU.myNavs[5].c
+				})
+
+				.otherwise({
+					redirectTo: NAVMENU.myNavs[0].u
+				});
+
+			});
+
+
+
+
+			mainApp.controller('navController', function($scope, NAVMENU) {
+	      $scope.navigate = {
+	        menus: [ {mName:NAVMENU.myNavs[0].m, mState:'active'},
+	                 {mName:NAVMENU.myNavs[1].m, mState:'z'},
+									 {mName:NAVMENU.myNavs[2].m, mState:'z'},
+	                 {mName:NAVMENU.myNavs[3].m, mState:'z'},
+									 {mName:NAVMENU.myNavs[4].m, mState:'z'},
+									 {mName:NAVMENU.myNavs[5].m, mState:'z'}
+ 							 		],
+	        selectedMenu: 0,
+					prevMenu: 0,
+					setPage: function(index){
+						if(this.selectedMenu != index){
+						 	this.selectedMenu = index;
+						 	this.menus[this.prevMenu].mState = 'z';
+						 	this.menus[this.selectedMenu].mState = 'active';
+							this.prevMenu = this.selectedMenu;
+						}
+					}
+
+	      };
+	    });
+
+			mainApp.controller('includeController', function($scope, $http, $sce, NAVMENU){
+				let url1 ='';
+				$scope.toggle = {
+					show: false, 
+					source: function(myEvent){
+						url1 = window.location.href;
+						$http.get(url1).then( function(response) {
+								$scope.contents = $sce.trustAsHtml(response.data);
+						});
+						$scope.toggle.show = !$scope.toggle.show;
+					}
+				}
+
+				$scope.$watch('navigate.selectedMenu', function() {
+					url1 = NAVMENU.myNavs[$scope.navigate.selectedMenu].u;
+					$http.get(url1).then( function(response) {
+							$scope.contents = $sce.trustAsHtml(response.data);
+					});
+				});
+			});
+
+				mainApp.directive('prism', [function() {
+			            return {
+			                restrict: 'A',
+			                link: function ($scope, element, attrs) {
+												$scope.$watch('navigate.selectedMenu', function() {
+			                    element.ready(function() {
+			                        Prism.highlightElement(element[0]);
+													});
+			                  });
+												$scope.$watch('toggle.show', function() {
+			                    element.ready(function() {
+			                        Prism.highlightElement(element[0]);
+													});
+			                  });
+									 		}
+			            }
+			        }]
+			    );
+
+
+
+			// controllers for files loaded from menu
+			mainApp.controller('dateController', function($scope) {
+				$scope.today = {
+					value: new Date()
+				};
+			});
+
+			mainApp.controller('checkboxController', function($scope) {
+				$scope.checkGroup = {
+					boxes: [ {subject:'physics',trueValue:10,falseValue:0,value:null},
+										{subject:'maths',trueValue:"'yes'",falseValue:"'no'",value:null},
+										{subject:'chemistry',trueValue:true,falseValue:false,value:null},
+										{subject:'music',trueValue:true,falseValue:false,value:null}, ],
+					selectedCount: 0,
+					count: function(myEvent){
+
+						let changedBox = myEvent.target;
+						if (changedBox.checked) {this.selectedCount ++;scope.$apply() }else{this.selectedCount --}
+					}
+				};
+			});
+
+		</script>
+
+		<style>
+		table, th , td {
+			border: 1px solid grey;
+			border-collapse: collapse;
+			padding: 5px;
+		}
+
+		table tr:nth-child(odd) {
+			background-color: #f2f2f2;
+		}
+
+		table tr:nth-child(even) {
+			background-color: #ffffff;
+		}
+		</style>
+	</head>
+
+
+	<body ng-app = "mainApp" ng-controller = "navController" >
+    <h1>Validation examples</h1>
+		<nav >
+			<a ng-repeat = "menu in navigate.menus"
+			   href="#!{{menu.mName}}" class="{{menu.mState}}"
+				 ng-click="navigate.setPage($index)"
+			> {{menu.mName}}</a>
+		</nav>
+
+		<div ng-view></div>
+
+		<div ng-app = "mainApp" ng-controller = "includeController" >
+		<button type = "button" ng-click="toggle.source()"> toggle source</button>
+		<pre ><code  class="language-markup" prism  ng-bind = "(contents)"  ></code> </pre>
+
+
+		</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8"/>
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+
+		<script>
+	    var mainApp = angular.module("mainApp", []);
+	    mainApp.controller('navController', function($scope) {
+	      $scope.navigate = {
+	        menus: [ {mName:'home'},
+	                 {mName:'about'},
+	                 {mName:'contact'},
+ 							 		],
+	        selectedMenu: 0,
+					setPage: function(index){
+						 this.selectedMenu = index;
+					}
+	      };
+	    });
+	  </script>
+	</head>
+
+
+	<body ng-app = "mainApp" ng-controller = "navController">
+    <h1>Navigation</h1>
+		<nav class="{{navigate.menus[navigate.selectedMenu].mName}}" ng-click="$event.preventDefault()">
+			<a ng-repeat = "menu in navigate.menus"
+			   href="#" class="{{menu.mName}}"
+				 ng-click="navigate.setPage($index)"> {{menu.mName}}</a>
+		</nav>
+
+		<p>You chose <b>{{navigate.selectedMenu}}</b></p>
+
+		<div ng-show="navigate.selectedMenu == 0">
+		<p>Hello Page{{navigate.selectedMenu}}<p>
+		<br/>	<br/>	<br/>	<br/>	<br/>	<br/>	<br/>
+		</div>
+
+		<div ng-show="navigate.selectedMenu == 1">
+		<p>About Page{{navigate.selectedMenu}}<p>
+		<br/>	<br/>	<br/>	<br/>	<br/>	<br/>	<br/>
+		</div>
+
+		<div ng-show="navigate.selectedMenu == 2">
+		<p>Contacts Page{{navigate.selectedMenu}}<p>
+		<br/>	<br/>	<br/>	<br/>	<br/>	<br/>	<br/>	
+		</div>
+
+    <p>Menu Selected {{navigate.menus[navigate.selectedMenu].mName}}</p>
+		</body>
+</html>

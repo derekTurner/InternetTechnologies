@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8"/>
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" />
+		<link href="style.css" rel="stylesheet" />
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.js"></script>
+		<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-route.min.js"></script>
+		<script src="./library/prism.js"></script>
+		<link href="./css/prism.css" rel="stylesheet" />
+
+		<script>
+	    var mainApp = angular.module("mainApp", ['ngRoute']);
+
+/*			mainApp.constant('getDate',{date:'/date'});
+
+			mainApp.provider('provideDate',['getDate',function(getDate){
+				this.data = {date:getDate.date};
+				this.$get = function() {return this.data;};
+			}]);
+
+
+			mainApp.config(['provideDate',function(provideDate){
+			//	console.log(dateProvider.data.date)
+			}]);
+*/
+
+			.provider('constants', function () {
+				 // default values
+				 var values = {
+					 username: 'World'
+				 };
+				 return {
+					 $get: function () {
+						 return values;
+					 }
+				 };
+			 })
+
+			 mainApp.config(["constantsProvider", function(constantsProvider) {
+				 console.log(constantsProvider.)
+				 unicornLauncherProvider.useTinfoilShielding(true);
+			 }]);
+
+/*			mainApp.provider('unicornLauncher', function UnicornLauncherProvider() {
+			  var useTinfoilShielding = false;
+
+			  this.useTinfoilShielding = function(value) {
+			    useTinfoilShielding = !!value;
+			  };
+
+			  this.$get = ["apiToken", function unicornLauncherFactory(apiToken) {
+
+			    // let's assume that the UnicornLauncher constructor was also changed to
+			    // accept and use the useTinfoilShielding argument
+			    return new UnicornLauncher(apiToken, useTinfoilShielding);
+			  }];
+			});
+
+			mainApp.config(["unicornLauncherProvider", function(unicornLauncherProvider) {
+  unicornLauncherProvider.useTinfoilShielding(true);
+}]);
+*/
+
+			mainApp.config(['$routeProvider', function($routeProvider) {
+
+				$routeProvider
+
+				.when('/date', {
+					templateUrl: 'validateDate.html',
+					controller:  'dateController'
+				})
+
+				.when('/email', {
+					templateUrl: 'validateEmail.html',
+					//controller: 'noController'
+				})
+
+				.when('/url', {
+					templateUrl: 'validateUrl.html',
+					//controller: 'noController'
+				})
+
+				.when('/number', {
+					templateUrl: 'validateNumber.html',
+					//controller: 'noController'
+				})
+
+				.when('/pattern', {
+					templateUrl: 'validatePatternText.html',
+					//controller: 'noController'
+				})
+
+				.when('/checkbox', {
+					templateUrl: 'validateCheckboxGroup.html',
+					controller: 'checkboxController'
+				})
+
+				.otherwise({
+					redirectTo: 'validateDate.html'
+				});
+
+			}]);
+
+
+
+
+			mainApp.controller('navController', function($scope) {
+	      $scope.navigate = {
+	        menus: [ {mName:'date', mState:'active'},
+	                 {mName:'email', mState:'z'},
+									 {mName:'url', mState:'z'},
+	                 {mName:'number', mState:'z'},
+									 {mName:'pattern', mState:'z'},
+									 {mName:'checkbox', mState:'z'}
+ 							 		],
+	        selectedMenu: 0,
+					prevMenu: 0,
+					setPage: function(index){
+						if(this.selectedMenu != index){
+						 	this.selectedMenu = index;
+						 	this.menus[this.prevMenu].mState = 'z';
+						 	this.menus[this.selectedMenu].mState = 'active';
+							this.prevMenu = this.selectedMenu;
+						}
+					}
+
+	      };
+	    });
+
+			mainApp.controller('includeController', function($scope, $http, $sce) {// angularJS 1.3 onwards
+				var url1 = window.location.href;
+				console.log(window.location.href);
+				$http.get(url1).then( function(response) {
+					$scope.contents =     $sce.trustAsHtml(response.data);
+				});
+			});
+
+				mainApp.directive('prism', [function() {
+			            return {
+			                restrict: 'A',
+			                link: function ($scope, element, attrs) {
+			                    element.ready(function() {
+			                        Prism.highlightElement(element[0]);
+			                    });
+			                }
+			            }
+			        }]
+			    );
+
+
+
+			// controllers for files loaded from menu
+			mainApp.controller('dateController', function($scope) {
+				$scope.today = {
+					value: new Date()
+				};
+			});
+
+			mainApp.controller('checkboxController', function($scope) {
+				$scope.checkGroup = {
+					boxes: [ {subject:'physics',trueValue:10,falseValue:0,value:null},
+										{subject:'maths',trueValue:"'yes'",falseValue:"'no'",value:null},
+										{subject:'chemistry',trueValue:true,falseValue:false,value:null},
+										{subject:'music',trueValue:true,falseValue:false,value:null}, ],
+					selectedCount: 0,
+					count: function(myEvent){
+
+						let changedBox = myEvent.target;
+						if (changedBox.checked) {this.selectedCount ++ }else{this.selectedCount --}
+					}
+				};
+			});
+
+		</script>
+
+		<style>
+		table, th , td {
+			border: 1px solid grey;
+			border-collapse: collapse;
+			padding: 5px;
+		}
+
+		table tr:nth-child(odd) {
+			background-color: #f2f2f2;
+		}
+
+		table tr:nth-child(even) {
+			background-color: #ffffff;
+		}
+		</style>
+	</head>
+
+
+	<body ng-app = "mainApp" >
+    <h1>Validation examples</h1>
+		<nav ng-controller = "navController">
+			<a ng-repeat = "menu in navigate.menus"
+			   href="#!{{menu.mName}}" class="{{menu.mState}}"
+				 ng-click="navigate.setPage($index)"
+			> {{menu.mName}}</a>
+		</nav>
+
+		<div ng-view></div>
+
+		<div ng-app = "mainApp" ng-controller = "includeController" >
+		<pre ><code  class="language-markup" prism ng-bind = "(contents)"  ></code> </pre>
+
+
+		</body>
+</html>

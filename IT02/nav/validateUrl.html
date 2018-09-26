@@ -1,0 +1,24 @@
+
+  <h2>AngularJS URL</h2>
+  <p>form has no action so does not submit anywhere</p>
+  <div ng-app="mainApp">
+
+    <form name="studentForm" novalidate autocomplete="on">
+      <table border="0">
+        <tr>
+          <td>Enter URL:</td>
+          <td><input name = "aUrl" type = "url"
+                     ng-model = "aUrl"  required>
+            <span style = "color:red"
+                  ng-show =   "studentForm.aUrl.$dirty && studentForm.aUrl.$invalid">
+              <span ng-show = "studentForm.aUrl.$error.url">URL is required.</span>
+            </span>
+          </td>
+        </tr>
+      </table>
+      <p>required error {{studentForm.aUrl.$error.required}}</p>
+      <p>url  error {{studentForm.aUrl.$error.url}}</p>
+    </form>
+  </div>
+
+</html>

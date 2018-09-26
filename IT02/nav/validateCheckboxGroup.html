@@ -1,0 +1,31 @@
+
+  <h2>AngularJS Checkbox</h2>
+  <p>form has no action so does not submit anywhere</p>
+  <div ng-app="mainApp" ng-controller = "checkboxController">
+
+    <form name="studentForm" novalidate autocomplete="on">
+      <table border="0">
+
+        <tr ng-repeat = "box in checkGroup.boxes">
+
+            <td> {{box.subject}}</td>
+            <td><input name = "cBox" type = "checkbox"
+                       ng-model = "box.value"
+                       ng-true-value = {{box.trueValue}}
+                       ng-false-value = {{box.falseValue}}
+                       ng-click = "checkGroup.count($event)"
+                       ng-required = "!checkGroup.selectedCount>0" >
+
+
+            <span style = "color:red"
+                  ng-show =   "studentForm.$dirty">
+              <span ng-show = "studentForm.cBox.$error.required">Select at least one</span>
+            </span>
+          </td>
+        </tr>
+      </table>
+      <p>required error {{studentForm.cBox.$error.required}}</p>
+      <p ng-repeat = "box in checkGroup.boxes" >{{$index}} value:{{box.value}}</p>
+      <p>selected count = {{checkGroup.selectedCount}}</p>
+    </form>
+  </div>

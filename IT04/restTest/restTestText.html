@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Hello AngularJS</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.3/angular.min.js"></script>
+    <script src="../library/prism.js"></script>
+		<link href="../css/prism.css" rel="stylesheet" />
+    	<script>
+      var mainApp = angular.module("mainApp", [])
+      .controller('Hello', function($scope, $http) {
+          //$http.get('http://rest-service.guides.spring.io/greeting').
+          $http.get('https://b3f71552-8ec8-4711-8cf8-4d5a119a9e28.mock.pstmn.io/greeting').
+              then(function(response) {
+                  $scope.greeting = response.data;
+              });
+      });
+      </script>
+	</head>
+
+	<body ng-app = "mainApp">
+    <!-- https://spring.io/guides/gs/consuming-rest-angularjs/ -->
+		<div ng-controller="Hello">
+			<p>The ID is {{greeting.id}}</p>
+			<p>The content is {{greeting.content}}</p>
+		</div>
+	</body>
+</html>

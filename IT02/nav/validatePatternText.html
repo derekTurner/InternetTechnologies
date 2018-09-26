@@ -1,0 +1,25 @@
+  <h2>AngularJS Single Word Text</h2>
+  <p>form has no action so does not submit anywhere</p>
+  <div ng-app="mainApp">
+
+    <form name="studentForm" novalidate autocomplete="on">
+      <table border="0">
+        <tr>
+          <td>Enter first name:</td>
+          <td><input name = "rtext" type = "text"
+                     ng-model = "rtext"  required
+                     ng-pattern = "/^\s*\w*\s*$/">
+            <span style = "color:red"
+                  ng-show =   "studentForm.rtext.$dirty && studentForm.rtext.$invalid">
+              <span ng-show = "studentForm.rtext.$error.required">Text is required.</span>
+              <span ng-show = "studentForm.rtext.$error.pattern">Single word only.</span>
+            </span>
+          </td>
+        </tr>
+      </table>
+      <p>required error {{studentForm.rtext.$error.required}}</p>
+      <p>pattern  error {{studentForm.rtext.$error.pattern}}</p>
+    </form>
+  </div>
+
+</html>
